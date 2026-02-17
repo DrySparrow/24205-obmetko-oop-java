@@ -6,12 +6,9 @@ public class SecretNumber {
 
     public SecretNumber(int length) {   // generate a random number with the given length
         this.length = length;
-        List<String> digits = new ArrayList<>();
-        for (int i = 0; i < 10; i++) digits.add(String.valueOf(i));
+        List<String> digits = Arrays.asList("0123456789".split(""));
         Collections.shuffle(digits);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) sb.append(digits.get(i));
-        this.value = sb.toString();
+        this.value = String.join("", digits.subList(0, length));
     }
 
     public String getValue() { return value; }

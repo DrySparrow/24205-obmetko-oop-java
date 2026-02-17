@@ -1,6 +1,8 @@
 import java.util.*;
 
 public class Game {
+    private static final GameLogger.Log log = GameLogger.log;
+
     public static final int MIN_LENGTH = 1;
     public static final int MAX_LENGTH = 10;
     public static final String SHOW_HIDDEN_NUM = "0";
@@ -29,6 +31,7 @@ public class Game {
         while (true) {
             System.out.print("set the length of the number:  ");
             String input = scanner.nextLine();
+            log.info("User input: " + input);
             
             if (input.equals(EXIT_GAME)) {
                 System.out.println("GAME OVER");
@@ -43,12 +46,14 @@ public class Game {
                     System.out.print("set the length of the number:  ");
                     length = Integer.parseInt(scanner.nextLine());
                 }
+                log.info("user setted length: " + length);
             } catch (NumberFormatException e) {
                 System.out.println("invalid length!");
                 continue;
             }
 
             secret = new SecretNumber(length);
+            log.info("SecretNumber is " + secret.getValue());
             tries = 0;
             victory = false;
 
@@ -56,6 +61,7 @@ public class Game {
                 tries++;
                 System.out.print("enter your guess:  ");
                 String guess = scanner.nextLine();
+                log.info("user guess " + guess);
 
                 if (guess.equals(EXIT_GAME)) {
                     System.out.println("GAME OVER");
@@ -70,11 +76,14 @@ public class Game {
                     continue;
                 }
 
+                log.info("evaluating result...");
                 BullsAndCowsResult result = evaluator.evaluate(guess, secret.getValue());
                 System.out.println("Bulls:  " + result.getBulls());
                 System.out.println("Cows: " + result.getCows());
-
+                log.info("Bulls: " + result.getBulls() + " Cows: " + result.getCows());
+                
                 if (result.getBulls() == secret.getLength()) {
+                    log.info("victory");
                     victory = true;
                 }
             }
