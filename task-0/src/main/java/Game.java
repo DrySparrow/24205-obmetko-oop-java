@@ -8,11 +8,8 @@ public class Game {
     public static final String SHOW_HIDDEN_NUM = "0";
     public static final String EXIT_GAME = "00";
 
-    private Scanner scanner;
-    private SecretNumber secret;
-    private BullsAndCowsEvaluator evaluator;
-    private int tries;
-    private boolean victory;
+    private final Scanner scanner;
+    private final BullsAndCowsEvaluator evaluator;
 
     public Game() {
         scanner = new Scanner(System.in);
@@ -42,20 +39,20 @@ public class Game {
             try {
                 length = Integer.parseInt(input);
                 while (length < MIN_LENGTH || length > MAX_LENGTH) {
-                    System.out.println(String.format("Invalid length! must be %d <= length <= %d", MIN_LENGTH, MAX_LENGTH));
+                    System.out.printf("Invalid length! must be %d <= length <= %d%n", MIN_LENGTH, MAX_LENGTH);
                     System.out.print("set the length of the number:  ");
                     length = Integer.parseInt(scanner.nextLine());
                 }
-                log.info("user setted length: " + length);
+                log.info("user set length: " + length);
             } catch (NumberFormatException e) {
                 System.out.println("invalid length!");
                 continue;
             }
 
-            secret = new SecretNumber(length);
+            SecretNumber secret = new SecretNumber(length);
             log.info("SecretNumber is " + secret.getValue());
-            tries = 0;
-            victory = false;
+            int tries = 0;
+            boolean victory = false;
 
             while (!victory) {
                 tries++;
@@ -78,11 +75,11 @@ public class Game {
 
                 log.info("evaluating result...");
                 BullsAndCowsResult result = evaluator.evaluate(guess, secret.getValue());
-                System.out.println("Bulls:  " + result.getBulls());
-                System.out.println("Cows: " + result.getCows());
-                log.info("Bulls: " + result.getBulls() + " Cows: " + result.getCows());
+                System.out.println("Bulls:  " + result.bulls());
+                System.out.println("Cows: " + result.cows());
+                log.info("Bulls: " + result.bulls() + " Cows: " + result.cows());
                 
-                if (result.getBulls() == secret.getLength()) {
+                if (result.bulls() == secret.getLength()) {
                     log.info("victory");
                     victory = true;
                 }
