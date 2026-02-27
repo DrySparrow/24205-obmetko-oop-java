@@ -1,6 +1,6 @@
 public class InputValidator {
     public static boolean isValid(String guess, int expectedLength) {
-        if (guess.equals(Game.EXIT_GAME)) {
+        if (guess.equals(BullsAndCowsGame.EXIT_GAME)) {
             System.out.println("GAME OVER");
             System.exit(0);
         }

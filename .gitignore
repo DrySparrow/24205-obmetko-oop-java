@@ -3,7 +3,6 @@
 *.txt
 *.csv
 *.log
-*.xml
 External Libraries
 .idea
 target
