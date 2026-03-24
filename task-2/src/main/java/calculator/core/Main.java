@@ -32,7 +32,7 @@ public class Main {
                 String commandName = parts[0];
 
                 try {
-                    Command command = getBuiltInCommand(commandName);
+                    Command command = Command.getBuiltInCommand(commandName);
                     if (command != null) {
                         command.execute(context, parts);
                     } else {
@@ -50,20 +50,5 @@ public class Main {
         }
 
         scanner.close();
-    }
-
-    private static Command getBuiltInCommand(String name) {
-        switch (name) {
-            case "DEFINE":
-                return new DefineCommand();
-            case "PUSH":
-                return new PushCommand();
-            case "POP":
-                return new PopCommand();
-            case "PRINT":
-                return new PrintCommand();
-            default:
-                return null;
-        }
     }
 }
