@@ -1,13 +1,10 @@
 package calculator.annotations;
 
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME) // Важно: чтобы рефлексия видела её при запуске
 public @interface Operation {
     String name();
-    int arity() default 2;
+    int arity() default 0;
 }

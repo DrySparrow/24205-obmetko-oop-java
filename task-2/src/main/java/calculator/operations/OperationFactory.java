@@ -2,74 +2,54 @@ package calculator.operations;
 
 import calculator.annotations.Operation;
 import calculator.core.Command;
-import calculator.operations.builtin.*;
-
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
-import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class OperationFactory {
-    private static final Map<String, Command> operations = new HashMap<>();
+    private static final Map<String, Command> commands = new HashMap<>();
 
     static {
-        registerBuiltInOperations();
-    }
+        try {
+            // Читаем конфиг через getResourceAsStream
+            InputStream is = OperationFactory.class.getResourceAsStream("calculator.config");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String jarPath = reader.readLine(); // Читаем первую строку с путем к JAR
 
-    private static void registerBuiltInOperations() {
-        register("+", new AddCommand(), 2);
-        register("-", new SubCommand(), 2);
-        register("*", new MulCommand(), 2);
-        register("/", new DivCommand(), 2);
-        register("SQRT", new SqrtCommand(), 1);
-    }
-
-    private static void register(String name, Command command, int arity) {
-        operations.put(name, command);
-    }
-
-    public static void loadJar(String jarPath) throws Exception {
-        File jarFile = new File(jarPath);
-        if (!jarFile.exists()) {
-            throw new IllegalArgumentException("JAR не найден: " + jarPath);
+            loadJar(jarPath.trim());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
-        try (URLClassLoader loader = new URLClassLoader(
-                new URL[]{jarFile.toURI().toURL()},
-                Thread.currentThread().getContextClassLoader())) {
+    private static void loadJar(String path) throws Exception {
+        File file = new File(path);
+        URLClassLoader loader = new URLClassLoader(
+                new URL[]{file.toURI().toURL()},
+                OperationFactory.class.getClassLoader() // Передаем родительский загрузчик
+        );
+        JarFile jar = new JarFile(file);
 
-            try (JarFile jar = new JarFile(jarFile)) {
-                Enumeration<JarEntry> entries = jar.entries();
-                while (entries.hasMoreElements()) {
-                    JarEntry entry = entries.nextElement();
-                    if (entry.getName().endsWith(".class")) {
-                        String className = entry.getName()
-                                .replace("/", ".")
-                                .replace(".class", "");
-                        try {
-                            Class<?> clazz = loader.loadClass(className);
-                            Operation opAnnotation = clazz.getAnnotation(Operation.class);
-                            if (opAnnotation != null && Command.class.isAssignableFrom(clazz)) {
-                                Command command = (Command) clazz.getDeclaredConstructor().newInstance();
-                                operations.put(opAnnotation.name(), command);
-                                System.out.println("Загружена операция: " + opAnnotation.name());
-                            }
-                        } catch (Exception e) {
-                            System.err.println("Не удалось загрузить класс " + className + ": " + e.getMessage());
-                        }
+        jar.stream().forEach(entry -> {
+            if (entry.getName().endsWith(".class")) {
+                try {
+                    String className = entry.getName().replace("/", ".").replace(".class", "");
+                    Class<?> clazz = loader.loadClass(className);
+
+                    if (clazz.isAnnotationPresent(Operation.class) && Command.class.isAssignableFrom(clazz)) {
+                        Operation ann = clazz.getAnnotation(Operation.class);
+                        Command cmd = (Command) clazz.getDeclaredConstructor().newInstance();
+                        commands.put(ann.name(), cmd);
                     }
-                }
+                } catch (Exception ignored) {}
             }
-        }
+        });
+        jar.close();
     }
 
     public static Command getCommand(String name) {
-        Command cmd = operations.get(name);
-        if (cmd == null) {
-            throw new IllegalArgumentException("Неизвестная операция: " + name);
-        }
-        return cmd;
+        return commands.get(name);
     }
 }

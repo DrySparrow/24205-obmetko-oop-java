@@ -9,6 +9,10 @@ public class Context {
     private final Deque<Double> stack = new ArrayDeque<>();
     private final Map<String, Double> variables = new HashMap<>();
 
+    public int getStackSize() {
+        return stack.size();
+    }
+
     public void push(double value) {
         stack.push(value);
     }
