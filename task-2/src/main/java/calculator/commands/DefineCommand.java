@@ -16,7 +16,7 @@ public class DefineCommand implements Command {
         try {
             value = Double.parseDouble(args[2]);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Некорректное значение для DEFINE: " + args[2]);
+            throw new IllegalArgumentException("Incorrect value for DEFINE: " + args[2]);
         }
         context.define(name, value);
     }

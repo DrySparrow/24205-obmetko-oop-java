@@ -9,7 +9,7 @@ public class PushCommand implements Command {
     @Override
     public void execute(Context context, String[] args) {
         if (args.length != 2) {
-            throw new IllegalArgumentException("PUSH requires one argument.");
+            throw new IllegalArgumentException("PUSH requires 1 argument.");
         }
         String arg = args[1];
         double value;
@@ -19,7 +19,7 @@ public class PushCommand implements Command {
             try {
                 value = Double.parseDouble(arg);
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Некорректный аргумент PUSH: " + arg);
+                throw new IllegalArgumentException("Invalid argument PUSH: " + arg);
             }
         }
         context.push(value);

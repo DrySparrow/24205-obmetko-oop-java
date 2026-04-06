@@ -14,7 +14,7 @@ public class DivCommand implements Command {
 
         double b = context.pop();
         if (b == 0) {
-            throw new ArithmeticException("Деление на ноль");
+            throw new ArithmeticException("Division by zero");
         }
         double a = context.pop();
         context.push(a / b);
