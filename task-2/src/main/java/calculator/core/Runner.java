@@ -25,6 +25,7 @@ public class Runner {
 
     // Интерактивный режим (терминал)
     public void runInteractive() {
+        OperationFactory.init();
         System.out.println("program is running, to exit, enter Q");
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {

@@ -1,4 +1,10 @@
 *.class
-.h
+*.so
+*.h
 *.txt
 *.csv
+target
+.idea
+*.jar
+*target/
+*plugins/

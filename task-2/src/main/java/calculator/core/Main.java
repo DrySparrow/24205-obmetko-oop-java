@@ -11,5 +11,5 @@ public class Main {
         } else {
             System.out.println("unknown command. using: ./Main in.txt or ./Main");
         }
-    }
+    }   
 }
