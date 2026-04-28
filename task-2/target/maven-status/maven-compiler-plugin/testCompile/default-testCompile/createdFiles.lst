@@ -1,0 +1,7 @@
+calculator\commands\DivCommandTest.class
+calculator\commands\AddCommandTest.class
+calculator\commands\MulCommandTest.class
+calculator\commands\SqrtCommandTest.class
+calculator\commands\DefineCommandTest.class
+calculator\commands\PushCommandTest.class
+calculator\commands\PopCommandTest.class
