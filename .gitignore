@@ -1,4 +1,5 @@
 *.class
 *.so
-*.h
 *.txt
+target
+.idea
