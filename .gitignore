@@ -1,9 +1,4 @@
 *.class
-.h
+*.so
+*.h
 *.txt
-*.csv
-*.log
-External Libraries
-.idea
-target
-Scratches and Consoles
