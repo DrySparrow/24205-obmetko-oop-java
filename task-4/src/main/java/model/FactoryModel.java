@@ -5,17 +5,21 @@ import model.objects.*;
 import model.util.Config;
 import model.workers.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class FactoryModel {
     private final AtomicInteger carIdCounter = new AtomicInteger(0);
+    private final Storage<Body> bodyStorage;
+    private final Storage<Engine> engineStorage;
     private final Storage<Car> carStorage;
+    private final List<Storage<Accessory>> accessoryStorages = new ArrayList<>();
 
     public FactoryModel(Config config) {
-        Storage<Body> bodyStorage = new Storage<>(config.getBodyCapacity());
-        Storage<Engine> engineStorage = new Storage<>(config.getEngineCapacity());
-        Storage<Accessory> accessoryStorage = new Storage<>(config.getAccessoryCapacity());
-        carStorage = new Storage<>(config.getCarCapacity());
+        this.bodyStorage = new Storage<>(config.getBodyCapacity());
+        this.engineStorage = new Storage<>(config.getEngineCapacity());
+        this.carStorage = new Storage<>(config.getCarCapacity());
 
         for (int i = 0; i < config.getBodySuppliersCount(); i++) {
             new Thread(new BodySupplier(bodyStorage)).start();
@@ -26,11 +30,16 @@ public class FactoryModel {
         }
 
         for (int i = 0; i < config.getAccessorySuppliersCount(); i++) {
-            new Thread(new AccessorySupplier(accessoryStorage, "Supplier_" + i)).start();
+            // У каждого типа аксессуаров свой склад
+            Storage<Accessory> s = new Storage<>(config.getAccessoryCapacity());
+            accessoryStorages.add(s);
+
+            // Запускаем поставщика для этого конкретного склада
+            new Thread(new AccessorySupplier(s, "Type_" + i)).start();
         }
 
         for (int i = 0; i < config.getWorkersCount(); i++) {
-            new Thread(new Worker(i, bodyStorage, engineStorage, accessoryStorage, carStorage, this)).start();
+            new Thread(new Worker(i, bodyStorage, engineStorage, accessoryStorages, carStorage, this)).start();
         }
 
         for (int i = 0; i < config.getDealersCount(); i++) {

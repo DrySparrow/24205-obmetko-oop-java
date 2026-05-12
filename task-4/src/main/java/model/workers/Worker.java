@@ -12,16 +12,16 @@ import static java.lang.Thread.sleep;
 public class Worker implements Runnable {
     private final Storage<Body> bodyStorage;
     private final Storage<Engine> engineStorage;
-    private final Storage<Accessory> accessoryStorage;
+    private final List<Storage<Accessory>> accessoryStorages;
     private final Storage<Car> carStorage;
     private final int workerId;
     private final FactoryModel model;
     public Worker(int id, Storage<Body> bs, Storage<Engine> es,
-                  Storage<Accessory> as, Storage<Car> cs, FactoryModel model) {
+                  List<Storage<Accessory>> as, Storage<Car> cs, FactoryModel model) {
         this.workerId = id;
         this.bodyStorage = bs;
         this.engineStorage = es;
-        this.accessoryStorage = as;
+        this.accessoryStorages = as;
         this.carStorage = cs;
         this.model = model;
     }
@@ -37,15 +37,15 @@ public class Worker implements Runnable {
                 Body body = bodyStorage.get();
                 Engine engine = engineStorage.get();
 
-                List<Accessory> carAccessories = new ArrayList<>();
-                for (int i = 0; i < accessoriesPerCar; i++) {
-                    carAccessories.add(accessoryStorage.get());
+                List<Accessory> kit = new ArrayList<>();
+                for (Storage<Accessory> s : accessoryStorages) {
+                    kit.add(s.get()); // Ждем, пока на каждом складе появится деталь
                 }
 
                 Thread.sleep(3000); // Сборка
 
-                int carId = model.generateCarId();
-                Car car = new Car(carId, body, engine, carAccessories);
+                Car car = new Car(model.generateCarId(), body, engine, kit);
+                System.out.println("worker <" + workerId + "> created a car № " + car.getId());
                 carStorage.put(car);
             }
         } catch (InterruptedException e) {
