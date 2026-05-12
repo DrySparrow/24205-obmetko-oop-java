@@ -546,3 +546,52 @@
 2026-05-13 00:06:54 [Thread-9] INFO  model.workers.Worker - Storage Update - Cars available: 1
 2026-05-13 00:06:54 [Thread-7] INFO  model.workers.Worker - Worker-0 created Car ID: 2 (Accessories: 3)
 2026-05-13 00:06:54 [Thread-7] INFO  model.workers.Worker - Storage Update - Cars available: 1
+2026-05-13 00:10:07 [AWT-EventQueue-0] INFO  model.workers.Worker - Loading configuration...
+2026-05-13 00:10:07 [Thread-9] INFO  model.workers.Worker - Worker-2 started
+2026-05-13 00:10:07 [Thread-11] INFO  model.workers.Dealer - Dealer-0 started
+2026-05-13 00:10:07 [AWT-EventQueue-0] INFO  model.workers.Worker - --- Factory System Initialized and Started ---
+2026-05-13 00:10:07 [Thread-8] INFO  model.workers.Worker - Worker-1 started
+2026-05-13 00:10:07 [Thread-7] INFO  model.workers.Worker - Worker-0 started
+2026-05-13 00:10:07 [Thread-10] INFO  model.workers.Worker - Worker-3 started
+2026-05-13 00:10:09 [Thread-5] INFO  model.workers.Supplier - Produced: Accessory-Type_1
+2026-05-13 00:10:09 [Thread-4] INFO  model.workers.Supplier - Produced: Accessory-Type_0
+2026-05-13 00:10:09 [Thread-6] INFO  model.workers.Supplier - Produced: Accessory-Type_2
+2026-05-13 00:10:10 [Thread-11] INFO  model.workers.Dealer - Dealer-0 sold a car
+2026-05-13 00:10:11 [Thread-3] INFO  model.workers.Supplier - Produced: Engine
+2026-05-13 00:10:11 [Thread-0] INFO  model.workers.Supplier - Produced: Body
+2026-05-13 00:10:11 [Thread-2] INFO  model.workers.Supplier - Produced: Engine
+2026-05-13 00:10:11 [Thread-1] INFO  model.workers.Supplier - Produced: Body
+2026-05-13 00:10:11 [Thread-4] INFO  model.workers.Supplier - Produced: Accessory-Type_0
+2026-05-13 00:10:11 [Thread-5] INFO  model.workers.Supplier - Produced: Accessory-Type_1
+2026-05-13 00:10:11 [Thread-6] INFO  model.workers.Supplier - Produced: Accessory-Type_2
+2026-05-13 00:10:13 [Thread-5] INFO  model.workers.Supplier - Produced: Accessory-Type_1
+2026-05-13 00:10:13 [Thread-6] INFO  model.workers.Supplier - Produced: Accessory-Type_2
+2026-05-13 00:10:13 [Thread-4] INFO  model.workers.Supplier - Produced: Accessory-Type_0
+2026-05-13 00:10:14 [Thread-9] INFO  model.workers.Worker - Worker-2 created Car ID: 1 (Accessories: 3)
+2026-05-13 00:10:14 [Thread-9] INFO  model.workers.Worker - Storage Update - Cars available: 1
+2026-05-13 00:10:14 [Thread-11] INFO  model.workers.Worker - Storage Update - Cars available: 0
+2026-05-13 00:10:14 [Thread-8] INFO  model.workers.Worker - Worker-1 created Car ID: 2 (Accessories: 3)
+2026-05-13 00:10:14 [Thread-8] INFO  model.workers.Worker - Storage Update - Cars available: 1
+2026-05-13 00:10:15 [Thread-0] INFO  model.workers.Supplier - Produced: Body
+2026-05-13 00:10:15 [Thread-2] INFO  model.workers.Supplier - Produced: Engine
+2026-05-13 00:10:15 [Thread-1] INFO  model.workers.Supplier - Produced: Body
+2026-05-13 00:10:15 [Thread-3] INFO  model.workers.Supplier - Produced: Engine
+2026-05-13 00:10:15 [Thread-5] INFO  model.workers.Supplier - Produced: Accessory-Type_1
+2026-05-13 00:10:15 [Thread-4] INFO  model.workers.Supplier - Produced: Accessory-Type_0
+2026-05-13 00:10:15 [Thread-6] INFO  model.workers.Supplier - Produced: Accessory-Type_2
+2026-05-13 00:10:17 [Thread-11] INFO  model.workers.Dealer - Dealer-0 sold a car
+2026-05-13 00:10:17 [Thread-11] INFO  model.workers.Worker - Storage Update - Cars available: 0
+2026-05-13 00:10:17 [Thread-6] INFO  model.workers.Supplier - Produced: Accessory-Type_2
+2026-05-13 00:10:17 [Thread-4] INFO  model.workers.Supplier - Produced: Accessory-Type_0
+2026-05-13 00:10:17 [Thread-5] INFO  model.workers.Supplier - Produced: Accessory-Type_1
+2026-05-13 00:10:18 [Thread-7] INFO  model.workers.Worker - Worker-0 created Car ID: 3 (Accessories: 3)
+2026-05-13 00:10:18 [Thread-7] INFO  model.workers.Worker - Storage Update - Cars available: 1
+2026-05-13 00:10:18 [Thread-10] INFO  model.workers.Worker - Worker-3 created Car ID: 4 (Accessories: 3)
+2026-05-13 00:10:18 [Thread-10] INFO  model.workers.Worker - Storage Update - Cars available: 2
+2026-05-13 00:10:19 [Thread-0] INFO  model.workers.Supplier - Produced: Body
+2026-05-13 00:10:19 [Thread-1] INFO  model.workers.Supplier - Produced: Body
+2026-05-13 00:10:19 [Thread-3] INFO  model.workers.Supplier - Produced: Engine
+2026-05-13 00:10:19 [Thread-2] INFO  model.workers.Supplier - Produced: Engine
+2026-05-13 00:10:19 [Thread-5] INFO  model.workers.Supplier - Produced: Accessory-Type_1
+2026-05-13 00:10:19 [Thread-4] INFO  model.workers.Supplier - Produced: Accessory-Type_0
+2026-05-13 00:10:19 [Thread-6] INFO  model.workers.Supplier - Produced: Accessory-Type_2
