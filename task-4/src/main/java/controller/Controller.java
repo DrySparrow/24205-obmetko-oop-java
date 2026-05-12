@@ -3,24 +3,24 @@ package controller;
 import model.FactoryModel;
 import model.storage.StorageObserver;
 import model.util.Config;
+import model.workers.Worker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Controller {
+    private static final Logger logger = LoggerFactory.getLogger(Worker.class);
+
     private final FactoryModel model;
 
     public Controller() {
+        logger.info("Loading configuration...");
         Config config = new Config("config.properties");
 
         this.model = new FactoryModel(config);
 
-        model.getCarStorage().addObserver(size -> System.out.println("[INFO] Машин на складе: " + size));
-
-        System.out.println("--- Завод запущен ---");
-    }
-
-    public class FileObserver implements StorageObserver {
-        @Override
-        public void onStorageSizeChanged(int currentSize) {
-            // Здесь будет код записи в файл
-        }
+        model.getCarStorage().addObserver(size ->
+                logger.info("Storage Update - Cars available: {}", size)
+        );
+        logger.info("--- Factory System Initialized and Started ---");
     }
 }

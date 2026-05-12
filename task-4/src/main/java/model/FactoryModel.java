@@ -22,11 +22,11 @@ public class FactoryModel {
         this.carStorage = new Storage<>(config.getCarCapacity());
 
         for (int i = 0; i < config.getBodySuppliersCount(); i++) {
-            new Thread(new BodySupplier(bodyStorage)).start();
+            new Thread(new BodySupplier(bodyStorage, config.getBodySuppliersDelay())).start();
         }
 
         for (int i = 0; i < config.getEngineSuppliersCount(); i++) {
-            new Thread(new EngineSupplier(engineStorage)).start();
+            new Thread(new EngineSupplier(engineStorage, config.getEngineSuppliersDelay())).start();
         }
 
         for (int i = 0; i < config.getAccessorySuppliersCount(); i++) {
@@ -35,15 +35,16 @@ public class FactoryModel {
             accessoryStorages.add(s);
 
             // Запускаем поставщика для этого конкретного склада
-            new Thread(new AccessorySupplier(s, "Type_" + i)).start();
+            new Thread(new AccessorySupplier(s, "Type_" + i, config.getAccessorySuppliersDelay())).start();
         }
 
         for (int i = 0; i < config.getWorkersCount(); i++) {
-            new Thread(new Worker(i, bodyStorage, engineStorage, accessoryStorages, carStorage, this)).start();
+            Worker worker = new Worker(i, bodyStorage, engineStorage, accessoryStorages, carStorage, config.getWorkersDelay(), this);
+            new Thread(worker).start();
         }
 
         for (int i = 0; i < config.getDealersCount(); i++) {
-            new Thread(new Dealer(i, carStorage)).start();
+            new Thread(new Dealer(i, carStorage, config.getDealersDelay())).start();
         }
     }
 

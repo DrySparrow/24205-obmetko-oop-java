@@ -19,37 +19,46 @@ public class Config {
     }
 
     public int getBodyCapacity() {
-        return Integer.parseInt(props.getProperty("storage.body.capacity"));
+        return Integer.parseInt(props.getProperty("Storage.body.capacity"));
     }
 
     public int getEngineCapacity() {
-        return Integer.parseInt(props.getProperty("storage.engine.capacity"));
+        return Integer.parseInt(props.getProperty("Storage.engine.capacity"));
     }
 
     public int getAccessoryCapacity() {
-        return Integer.parseInt(props.getProperty("storage.accessory.capacity"));
+        return Integer.parseInt(props.getProperty("Storage.accessory.capacity"));
     }
 
     public int getCarCapacity() {
-        return Integer.parseInt(props.getProperty("storage.car.capacity"));
+        return Integer.parseInt(props.getProperty("Storage.car.capacity"));
     }
 
     public int getBodySuppliersCount() {
-        return Integer.parseInt(props.getProperty("suppliers.body.count"));
+        return Integer.parseInt(props.getProperty("BodySuppliers.count"));
     }
 
     public int getEngineSuppliersCount() {
-        return Integer.parseInt(props.getProperty("suppliers.engine.count"));
+        return Integer.parseInt(props.getProperty("EngineSuppliers.count"));
     }
 
     public int getAccessorySuppliersCount() {
-        return Integer.parseInt(props.getProperty("suppliers.accessory.count"));
-    }
-    public int getWorkersCount() {
-        return Integer.parseInt(props.getProperty("workers.count"));
+        return Integer.parseInt(props.getProperty("AccessorySuppliers.count"));
     }
 
+    public int getWorkersCount() { return Integer.parseInt(props.getProperty("Workers.count")); }
+
     public int getDealersCount() {
-        return Integer.parseInt(props.getProperty("dealers.count"));
+        return Integer.parseInt(props.getProperty("Dealers.count"));
     }
+
+    public int getBodySuppliersDelay() { return Integer.parseInt(props.getProperty("BodySuppliers.delay")); }
+
+    public int getEngineSuppliersDelay() { return Integer.parseInt(props.getProperty("EngineSuppliers.delay")); }
+
+    public int getAccessorySuppliersDelay()  {return Integer.parseInt(props.getProperty("AccessorySuppliers.delay")); }
+
+    public int getWorkersDelay() { return Integer.parseInt(props.getProperty("Workers.delay")); }
+
+    public int getDealersDelay() { return Integer.parseInt(props.getProperty("Dealers.delay")); }
 }
