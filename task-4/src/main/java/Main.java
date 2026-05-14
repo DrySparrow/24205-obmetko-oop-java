@@ -1,11 +1,11 @@
-import controller.Controller;
+import controller.FactoryController;
 import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
         // Запуск Swing-интерфейса должен происходить в специальном потоке
         SwingUtilities.invokeLater(() -> {
-            new Controller();
+            new FactoryController("config.properties");
         });
     }
 }

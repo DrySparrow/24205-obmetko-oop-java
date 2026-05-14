@@ -16,17 +16,24 @@ public class Storage<T> {
         this.observers = new ArrayList<>();
     }
 
-    public void put(T item) throws InterruptedException {
-        // put() сам подождет (заблокирует поток), если очередь полна
-        data.put(item);
+    public synchronized void put(T item) throws InterruptedException {
+        while (data.size() >= capacity) {
+            wait();
+        }
+        data.add(item);
+        notifyAll();
+
         notifyObservers();
     }
 
-    public T get() throws InterruptedException {
-        // take() сам подождет, если склад пуст
-        T taken = data.take();
+    public synchronized T get() throws InterruptedException {
+        while (data.isEmpty()) {
+            wait(); // Ждем, пока что-то появится
+        }
+        T item = data.remove();
+        notifyAll(); // Будим тех, кто ждал места (put)
         notifyObservers();
-        return taken;
+        return item;
     }
 
     public int getCurrentSize() {
@@ -44,9 +51,5 @@ public class Storage<T> {
         }
     }
 
-    public void addObserver(StorageObserver observer) {
-        if (observer != null) {
-            observers.add(observer);
-        }
-    }
+    public void addObserver(StorageObserver observer) { observers.add(observer); }
 }

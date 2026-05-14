@@ -1,5 +1,7 @@
 package model.workers;
 
+import controller.FactoryController;
+import model.FactoryModel;
 import model.objects.Car;
 import model.storage.Storage;
 import org.slf4j.Logger;
@@ -12,11 +14,13 @@ public class Dealer implements Runnable {
     private final int dealerId;
     private final int assemblyDelay;
     private final Storage<Car> carStorage;
+    private final FactoryModel model;
 
-    public Dealer(int id, Storage<Car> carStorage, int assemblyDelay) {
+    public Dealer(int id, Storage<Car> carStorage, int assemblyDelay, FactoryModel model) {
         this.dealerId = id;
         this.carStorage = carStorage;
         this.assemblyDelay = assemblyDelay;
+        this.model = model;
     }
 
     int getDealerId() {
@@ -29,10 +33,12 @@ public class Dealer implements Runnable {
 
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                Thread.sleep(assemblyDelay);
-
-                logger.info("Dealer-{} sold a car", dealerId);
+                model.updateThreadStatus("Dealer-" + dealerId, false);
                 carStorage.get();
+                logger.info("Dealer-{} sold a car", dealerId);
+
+                model.updateThreadStatus("Dealer-" + dealerId, true);
+                Thread.sleep(assemblyDelay);
             }
         } catch (InterruptedException e) {
             logger.warn("Dealer-{} was interrupted", dealerId);
