@@ -51,5 +51,8 @@ public class Storage<T> {
         }
     }
 
-    public void addObserver(StorageObserver observer) { observers.add(observer); }
+    public void addObserver(StorageObserver observer) {
+        observers.add(observer);
+        observer.onStorageSizeChanged(this.getCurrentSize());
+    }
 }

@@ -1,6 +1,5 @@
-package model.workers;
+package workers;
 
-import controller.FactoryController;
 import model.FactoryModel;
 import model.objects.Car;
 import model.storage.Storage;

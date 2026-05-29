@@ -42,9 +42,7 @@ public class Config {
         return Integer.parseInt(props.getProperty("EngineSuppliers.count"));
     }
 
-    public int getAccessorySuppliersCount() {
-        return Integer.parseInt(props.getProperty("AccessorySuppliers.count"));
-    }
+    public int getAccessorySuppliersCount() { return Integer.parseInt(props.getProperty("AccessorySuppliers.count")); }
 
     public int getWorkersCount() { return Integer.parseInt(props.getProperty("Workers.count")); }
 

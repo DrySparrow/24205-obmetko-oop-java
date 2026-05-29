@@ -3,7 +3,6 @@ package controller;
 import model.FactoryModel;
 import model.util.Config;
 import view.MainFrame;
-import javax.swing.SwingUtilities;
 
 public class FactoryController {
     private final Config config;
@@ -15,12 +14,14 @@ public class FactoryController {
         this.model = new FactoryModel(config);
         this.view = new MainFrame();
 
+        // Слушатель для обновления лампочек активности потоков в UI
         model.setStatusListener((name, isBusy) -> {
             view.updateEntity(name, isBusy);
         });
 
         initStorageObservers();
 
+        // Запускаем стартовую сборку автомобилей
         for (int i = 0; i < config.getCarCapacity(); i++) {
             model.sendTaskToWorkers(config);
         }
@@ -30,21 +31,17 @@ public class FactoryController {
         // 1. Тела
         model.getBodyStorage().addObserver(size ->
                 view.updateStorage("Body", size, config.getBodyCapacity()));
-        // ПРИНУДИТЕЛЬНОЕ ОБНОВЛЕНИЕ ПРИ СТАРТЕ
-        view.updateStorage("Body", model.getBodyStorage().getCurrentSize(), config.getBodyCapacity());
 
         // 2. Двигатели
         model.getEngineStorage().addObserver(size ->
                 view.updateStorage("Engine", size, config.getEngineCapacity()));
-        view.updateStorage("Engine", model.getEngineStorage().getCurrentSize(), config.getEngineCapacity());
 
         // 3. Аксессуары
         for (int i = 0; i < config.getAccessorySuppliersCount(); i++) {
-            final int index = i;
+            int index = i;
             model.getAccessoryStorages().get(i).addObserver(size ->
                     view.updateStorage("Accessory-" + index, size, config.getAccessoryCapacity())
             );
-            view.updateStorage("Accessory-" + index, model.getAccessoryStorages().get(index).getCurrentSize(), config.getAccessoryCapacity());
         }
 
         // 4. Машины
@@ -54,10 +51,26 @@ public class FactoryController {
                 model.sendTaskToWorkers(config);
             }
         });
-        view.updateStorage("Car", model.getCarStorage().getCurrentSize(), config.getCarCapacity());
 
-        // Потоки (инициализация списка)
-        for (int i = 0; i < config.getWorkersCount(); i++) view.updateEntity("Worker-" + i, false);
-        for (int i = 0; i < config.getDealersCount(); i++) view.updateEntity("Dealer-" + i, false);
+        // === Инициализация списка активности потоков (Thread Activity) ===
+
+        // Потоки сборщиков автомобиля
+        for (int i = 0; i < config.getWorkersCount(); i++) {
+            view.updateEntity("Worker-" + i, false);
+        }
+
+        // Потоки дилеров
+        for (int i = 0; i < config.getDealersCount(); i++) {
+            view.updateEntity("Dealer-" + i, false);
+        }
+
+        // Потоки основных поставщиков
+        view.updateEntity("Supplier-Body", false);
+        view.updateEntity("Supplier-Engine", false);
+
+        // Потоки поставщиков аксессуаров (имена теперь строго совпадают с тем, что генерирует AccessorySupplier)
+        for (int i = 0; i < config.getAccessorySuppliersCount(); i++) {
+            view.updateEntity("Supplier-Accessory-Type_" + i, false);
+        }
     }
 }

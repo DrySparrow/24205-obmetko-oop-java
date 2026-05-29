@@ -3,7 +3,7 @@ package model;
 import model.storage.Storage;
 import model.objects.*;
 import model.util.Config;
-import model.workers.*;
+import workers.*;
 
 import java.util.ArrayList;
 import java.util.List;

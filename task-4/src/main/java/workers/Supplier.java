@@ -1,4 +1,4 @@
-package model.workers;
+package workers;
 
 import model.FactoryModel;
 import model.storage.Storage;

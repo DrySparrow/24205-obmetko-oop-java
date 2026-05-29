@@ -9,7 +9,15 @@ public class Accessory {
         this.id = id;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public int getId() {
         return this.id;
+    }
+
+    public String getType() {
+        return this.name;
     }
 }
