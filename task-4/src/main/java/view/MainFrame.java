@@ -89,7 +89,7 @@ public class MainFrame extends JFrame {
         EntityStatus(String name, boolean isBusy) { this.name = name; this.isBusy = isBusy; }
     }
 
-    // Отрисовщик кружочков
+    // чтобы полностью перехватить контроль над тем, как именно строчка данных превращается в картинку на экране
     private static class StatusCellRenderer extends DefaultListCellRenderer {
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

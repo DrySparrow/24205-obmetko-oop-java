@@ -21,7 +21,7 @@ public class FactoryModel {
         this.bodyStorage = new Storage<>(config.getBodyCapacity());
         this.engineStorage = new Storage<>(config.getEngineCapacity());
         this.carStorage = new Storage<>(config.getCarCapacity());
-        this.workerPool = new WorkerPool(config.getWorkersCount(), this);
+        this.workerPool = new WorkerPool(config.getWorkersCount());
 
         for (int i = 0; i < config.getBodySuppliersCount(); i++) {
             new Thread(new BodySupplier(bodyStorage, config.getBodySuppliersDelay(), this)).start();
